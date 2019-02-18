@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mtumilowicz/java9-stack-stackwalking.svg?branch=master)](https://travis-ci.com/mtumilowicz/java9-stack-stackwalking)
+
 # java9-stack-stackwalking
 
 # preface
