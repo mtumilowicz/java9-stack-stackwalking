@@ -2,12 +2,11 @@
 
 # preface
 * theory: https://github.com/mtumilowicz/java-stack
-* https://github.com/mtumilowicz/java8-stack-stackwalking
+* comparison to java 8: https://github.com/mtumilowicz/java8-stack-stackwalking
 * java 9 introduced a new API for stack-walking
 * API is represented by single `StackWalker` class
-* easy and efficient (stream of frames)
-* evaluates the stack frames lazily
-* methods to get the reference of the caller's class
+* easy and efficient - evaluates the stack frames lazily (stream based)
+* method to get the reference of the caller's class
 * is thread-safe
 
 # StackWalker
@@ -18,11 +17,11 @@
     * `RETAIN_CLASS_REFERENCE` - `StackFrame` will contain
     reference to the `Class` object of the method represented
     by this frame
-    * `SHOW_HIDDEN_FRAMES` - show all hidden frames (for example
+    * `SHOW_HIDDEN_FRAMES` - show all hidden frames (for example -
     implementation specific and reflection frames are not included
     by default)
     * `SHOW_REFLECT_FRAMES` - show only reflection frames (
-    specific implementation frames could be still hidden)
+    specific implementation frames could still be hidden)
 * note that there is also enum `StackWalker.ExtendedOption` 
 with only one, self-explaining value `LOCALS_AND_OPERANDS`
 ## StackWalker.StackFrame
@@ -54,5 +53,5 @@ with only one, self-explaining value `LOCALS_AND_OPERANDS`
           for the current thread, traversing from the top frame of the stack
         * stream will be closed when this method returns
         * the Java virtual machine is free to reorganize a thread's control stack, for example, via
-          deoptimization. By taking a `Function` parameter, this method allows access to stack frames 
+          deoptimization - by taking a `Function` parameter, this method allows access to stack frames 
           through a stable view of a thread's control stack
