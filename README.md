@@ -22,6 +22,8 @@
     by default)
     * `SHOW_REFLECT_FRAMES` - show only reflection frames (
     specific implementation frames could be still hidden)
+* note that there is also enum `StackWalker.ExtendedOption` 
+with only one, self-explaining value `LOCALS_AND_OPERANDS`
 ## StackWalker.StackFrame
 * interface
 * we don't have direct access to concrete implementation
@@ -32,5 +34,12 @@
     * `public Class<?> getDeclaringClass()`
         * `UnsupportedOperationException` if not configured with
         `RETAIN_CLASS_REFERENCE`
-
-## Methods
+## methods
+* factory
+    * `static StackWalker getInstance()`
+    * `static StackWalker getInstance(Option option)`
+    * `static StackWalker getInstance(Set<Option> options)`
+    * `static StackWalker getInstance(Set<Option> options, int estimateDepth)`
+        * `estimateDepth` specifies the estimate number of stack frames
+          this `StackWalker` will traverse that the `StackWalker` could
+          use as a hint for the buffer size
