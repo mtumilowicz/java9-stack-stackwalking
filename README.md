@@ -8,6 +8,7 @@
 * easy and efficient (stream of frames)
 * evaluates the stack frames lazily
 * methods to get the reference of the caller's class
+* is thread-safe
 
 # StackWalker
 ## StackWalker.Option
@@ -35,7 +36,7 @@ with only one, self-explaining value `LOCALS_AND_OPERANDS`
         * `UnsupportedOperationException` if not configured with
         `RETAIN_CLASS_REFERENCE`
 ## methods
-* factory
+* creating instance of `StackWalker`
     * `static StackWalker getInstance()`
     * `static StackWalker getInstance(Option option)`
     * `static StackWalker getInstance(Set<Option> options)`
@@ -43,3 +44,15 @@ with only one, self-explaining value `LOCALS_AND_OPERANDS`
         * `estimateDepth` specifies the estimate number of stack frames
           this `StackWalker` will traverse that the `StackWalker` could
           use as a hint for the buffer size
+* traverse the stack
+    * `void forEach(Consumer<? super StackFrame> action)`
+        * traversing from the top frame of the stack, which is the method calling this `forEach` method
+    * `<T> T walk(Function<? super Stream<StackFrame>, ? extends T> function)`    
+        * returning a Stream<StackFrame> would be unsafe, as the stream could
+          be used to access the stack frames in an uncontrolled manner
+        * applies the given function to the stream of `StackFrames`
+          for the current thread, traversing from the top frame of the stack
+        * stream will be closed when this method returns
+        * the Java virtual machine is free to reorganize a thread's control stack, for example, via
+          deoptimization. By taking a `Function` parameter, this method allows access to stack frames 
+          through a stable view of a thread's control stack
